@@ -51,4 +51,6 @@ for item in items:
     # print(f"{title} {city} {salary} {experience}")
 
 with open("res.json", "w") as rf:
-    rf.write(json.dumps(data, indent=4))
+    print(data)
+    str = json.dumps(data, indent=4)
+    rf.write(str)
