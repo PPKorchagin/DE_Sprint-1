@@ -4,10 +4,13 @@ if len(sys.argv) != 2:
     print("need one argument")
     exit(1)
 
-orig_str = sys.argv[1]
-str = orig_str.replace(" ","")
+def is_palindrome(val):
+    str = val.replace(" ", "")
 
-if str == str[::-1]:
-    print(f"{orig_str} is palindrome")
+    return str == str[::-1]
+
+
+if is_palindrome(sys.argv[1]):
+    print(f"{sys.argv[1]} is palindrome")
 else:
     print("try another word")
