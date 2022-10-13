@@ -66,7 +66,7 @@ while True:
         data.append(item)
         # print(f"{title} {city} {salary} {experience}")
 
-    sleep(5)
+    sleep(10)
     pagenum+=1
 
 with open("res.json", "w") as rf:
