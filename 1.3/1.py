@@ -16,6 +16,9 @@ HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36"
 }
 
+
+data = []
+
 while True:
     print("processing page %d"%pagenum)
     resp = requests.get(URL+str(pagenum), headers=HEADERS)
@@ -26,12 +29,12 @@ while True:
 
     soup = BeautifulSoup(resp.text, "html.parser")
 
-    # print(soup.prettify())
 
     items = soup.find_all("div", class_="vacancy-serp-item__layout")
 
-    data = []
 
+
+    print("new items %d" % len(items))
     for item in items:
         title_tag = item.find("a", class_="serp-item__title")
         url = title_tag['href']
@@ -47,8 +50,12 @@ while True:
         if page.status_code != 200:
             experience = "?"
         else:
-            page_soup = BeautifulSoup(page.text, "html.parser")
-            experience = page_soup.find("span", {"data-qa": "vacancy-experience"}).text
+            try:
+                page_soup = BeautifulSoup(page.text, "html.parser")
+                experience = page_soup.find("span", {"data-qa": "vacancy-experience"}).text
+            except AttributeError as e:
+                print("Can not get text from html.parser")
+                continue
 
         item = {
             "title": title,
@@ -59,8 +66,8 @@ while True:
         data.append(item)
         # print(f"{title} {city} {salary} {experience}")
 
-        sleep(3)
-        pagenum+=1
+    sleep(5)
+    pagenum+=1
 
 with open("res.json", "w") as rf:
     print(data)
