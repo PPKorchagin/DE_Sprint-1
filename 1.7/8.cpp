@@ -69,7 +69,9 @@ int main() {
     }
 
 
-    cout << "Forst elem is " << arr[0][0] << endl;
+    aprint();
+
+    cout << "First elem is " << arr[0][0] << endl;
 
     cout << "Max element is " << amax() << endl;
     cout << "Min element is " << amin() << endl;
